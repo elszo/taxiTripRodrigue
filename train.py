@@ -5,7 +5,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import mean_squared_error
-from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
 
 import common
 
@@ -21,9 +21,7 @@ def load_train_data(path):
 def fit_model(X_train, y_train):
     print(f"Fitting a model")
 
-    num_features = ['log_distance_haversine', 'hour',
-                    'abnormal_period', 'is_high_traffic_trip', 'is_high_speed_trip',
-                    'is_rare_pickup_point', 'is_rare_dropoff_point']
+    num_features = ['pickup_longitude',	'pickup_latitude', 'dropoff_longitude', 'dropoff_latitude', 'hour']
     cat_features = ['weekday', 'month']
     train_features = num_features + cat_features
 
@@ -34,7 +32,7 @@ def fit_model(X_train, y_train):
 
     pipeline = Pipeline(steps=[
         ('ohe_and_scaling', column_transformer),
-        ('regression', DecisionTreeRegressor())
+        ('regression', RandomForestRegressor(n_estimators=100, max_depth=10))
     ])
 
     model = pipeline.fit(X_train[train_features], y_train)
