@@ -14,8 +14,8 @@ def load_train_data(path):
     con = sqlite3.connect(path)
     data_train = pd.read_sql('SELECT * FROM train', con)
     con.close()
-    X_train = data_train.drop(columns=['trip_duration'])
-    y_train = data_train['trip_duration']
+    X_train = data_train.drop(columns=['trip_duration', 'log_trip_duration'])
+    y_train = data_train['log_trip_duration']
     return X_train, y_train
 
 def fit_model(X_train, y_train):

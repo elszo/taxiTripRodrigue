@@ -9,8 +9,8 @@ def load_test_data(path):
     con = sqlite3.connect(path)
     data_test = pd.read_sql('SELECT * FROM test', con)
     con.close()
-    X = data_test.drop(columns=['trip_duration'])
-    y = data_test['trip_duration']
+    X = data_test.drop(columns=['trip_duration', 'log_trip_duration'])
+    y = data_test['log_trip_duration']
     return X, y
 
 def evaluate_model(model, X, y):

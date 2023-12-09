@@ -45,6 +45,7 @@ def preprocess_data(data):
     data['weekday'] = data['pickup_datetime'].dt.weekday
     data['month'] = data['pickup_datetime'].dt.month
 
+    data["log_trip_duration"] = np.log1p(data["trip_duration"])
 
     return data
 
